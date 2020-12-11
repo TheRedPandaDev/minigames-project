@@ -1,0 +1,28 @@
+﻿body {
+  font-family: Verdana, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+  background-color: #424242;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p a {
+  color: #5a5a5a;
+}
+
+h1 {
+  color: #e4e4e4;
+  font-size: 50px;
+}
+
+.content {
+  text-align: center;
+  overflow: hidden;
+  width: auto;
+}
+

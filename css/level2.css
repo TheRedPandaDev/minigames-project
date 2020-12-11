@@ -1,0 +1,8 @@
+.cutting-area {
+    display: block;
+    height: 600px;
+    width: 800px;
+    border: 10px #e4e4e4 solid;
+    margin: 20px auto;
+    background-color: #fff;
+}

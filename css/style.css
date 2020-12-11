@@ -18,6 +18,19 @@ p a {
 h1 {
   color: #e4e4e4;
   font-size: 50px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #e4e4e4;
+  font-size: 25px;
+}
+
+p {
+  margin: 0;
+  color: #e4e4e4;
+  font-size: 20px;
 }
 
 .content {
@@ -26,3 +39,11 @@ h1 {
   width: auto;
 }
 
+.dragging-area {
+  display: block;
+  height: 600px;
+  width: 800px;
+  border: 10px #e4e4e4 solid;
+  margin: 50px auto;
+  background-color: #fff;
+}

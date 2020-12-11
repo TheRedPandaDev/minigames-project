@@ -4,8 +4,10 @@ var goalAmount = 4;
 var piecesCounter = 1;
 var canPlay = true;
 var svg = document.getElementById('svg-cutting-area');
-var cutsCounterElem = document.getElementById('cutsAmount');
-var piecesCounterElem = document.getElementById('piecesAmount');
+var cutsAmountElem = document.getElementById('cutsAmount');
+var cutsCounterElem = document.getElementById('cutsCounter');
+var piecesCounterElem = document.getElementById('piecesCounter');
+var goalAmountElem = document.getElementById('goalAmount');
 
 function Polygon() {
     var pointList = [];
@@ -100,8 +102,8 @@ var easyLevel = {
 }
 var mediumLevel = {
     polygon: [250, 150, 250, 450, 350, 450, 350, 250, 450, 250, 450, 450, 550, 450, 550, 150, 250, 150],
-    cutsAmount: 2,
-    goalAmount: 4
+    cutsAmount: 3,
+    goalAmount: 5
 }
 var hardLevel = {
     polygon: [250, 450, 550, 450, 550, 300, 500, 300, 500, 350, 425, 350, 425, 175, 450, 175, 450, 150, 350, 150, 350, 175, 375, 175, 375, 350, 300, 350, 300, 300, 250, 300, 250, 450],
@@ -110,6 +112,8 @@ var hardLevel = {
 }
 cutsAmount = mediumLevel.cutsAmount;
 goalAmount = mediumLevel.goalAmount;
+cutsAmountElem.innerText = cutsAmount.toString();
+goalAmountElem.innerText = goalAmount.toString();
 
 var polygonElems = new Map();
 var globalPolId = 1;

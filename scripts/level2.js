@@ -143,7 +143,6 @@ function handleMouseOver(evt) {
     if (cutStarted && !locked.get(evt.target.id)) {
         mouseOverIds.push(evt.target.id);
         locked.set(evt.target.id, true);
-        console.log(mouseOverIds);
     }
 }
 
@@ -210,15 +209,11 @@ function checkCuts(pathStart, pathEnd) {
             intersectionPoint = intersect(pathStart.x, pathStart.y, pathEnd.x, pathEnd.y,
                 polygonElemPoints[j], polygonElemPoints[j + 1], polygonElemPoints[j + 2], polygonElemPoints[j + 3]);
             if (intersectionPoint) {
-                console.log(intersectionCounter);
                 if (++intersectionCounter % 2 === 1) {
-                    console.log(intersectionCounter);
                     polNum++;
                     currPols[currPol].push(polygonElemPoints[j], polygonElemPoints[j + 1], intersectionPoint.x, intersectionPoint.y);
                     currPol = polNum;
-                    currPols.push([intersectionPoint.x, intersectionPoint.y])
-                    console.log(polNum);
-                    console.log(currPols);
+                    currPols.push([intersectionPoint.x, intersectionPoint.y]);
                 } else {
                     currPols[currPol].push(polygonElemPoints[j], polygonElemPoints[j + 1], intersectionPoint.x, intersectionPoint.y);
                     currPol = 0;
@@ -231,16 +226,10 @@ function checkCuts(pathStart, pathEnd) {
                 currPols[currPol].push(polygonElemPoints[j], polygonElemPoints[j + 1]);
             }
         }
-        console.log(currPols);
         for (let i = 0; i <= polNum; i++) {
             currPols[i].push(currPols[i][0], currPols[i][1]);
         }
         if (intersectionCounter === 0 || intersectionCounter % 2 === 1) {
-            console.log(mouseOverIds[i]);
-            console.log(polygonElemPoints);
-            console.log(pathStart.x, pathStart.y, pathEnd.x, pathEnd.y);
-            console.log(intersectionPoint);
-            console.log(intersectionCounter);
             mouseOverIds[i] = null;
         } else {
             polygonElems.delete(mouseOverIds[i]);
@@ -268,7 +257,6 @@ function resetPolygons(newPols) {
         }
     }
     if (removalFlag) cutsCounter++;
-    console.log(cutsCounter);
     createAndAppendPolygon(polygonsToDraw);
 }
 

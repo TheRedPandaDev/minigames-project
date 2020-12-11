@@ -110,14 +110,14 @@ var hardLevel = {
     cutsAmount: 4,
     goalAmount: 12
 }
-cutsAmount = mediumLevel.cutsAmount;
-goalAmount = mediumLevel.goalAmount;
+cutsAmount = easyLevel.cutsAmount;
+goalAmount = easyLevel.goalAmount;
 cutsAmountElem.innerText = cutsAmount.toString();
 goalAmountElem.innerText = goalAmount.toString();
 
 var polygonElems = new Map();
 var globalPolId = 1;
-polygonElems.set(`cuttable-polygon-${globalPolId++}`, mediumLevel.polygon);
+polygonElems.set(`cuttable-polygon-${globalPolId++}`, easyLevel.polygon);
 
 function createAndAppendPolygon(polygonElems) {
     for (let [key, polygonElem] of polygonElems) {
@@ -198,6 +198,7 @@ function makeCuttable(evt) {
 
 function checkCuts(pathStart, pathEnd) {
     var newPols = [];
+    var killSwitch = false;
     for (let i = 0; i < mouseOverIds.length; i++) {
         var currPols = [[]];
         var polNum = 0;
@@ -231,13 +232,18 @@ function checkCuts(pathStart, pathEnd) {
         }
         if (intersectionCounter === 0 || intersectionCounter % 2 === 1) {
             mouseOverIds[i] = null;
+            killSwitch = true;
+            break;
         } else {
-            polygonElems.delete(mouseOverIds[i]);
             for (let i = 0; i <= polNum; i++) {
                 newPols.push(currPols[i]);
             }
 
         }
+    }
+    if (killSwitch) return;
+    for (let i = 0; i < mouseOverIds.length; i++) {
+        polygonElems.delete(mouseOverIds[i]);
     }
     resetPolygons(newPols);
 }

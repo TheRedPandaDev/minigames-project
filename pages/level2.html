@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Miles: Home</title>
+    <!--[if IE]>
+    <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('section');
+        document.createElement('article');
+        document.createElement('aside');
+        document.createElement('footer');
+    </script>
+    <![endif]-->
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/level2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <h1>The Shape-Cutting Game</h1>
+            <h2>Cut the shape into 4 pieces with only 2 cuts</h2>
+            <p>Cuts: <span id="cutsAmount">0</span>/2 Pieces: <span id="piecesAmount">1</span>/4</p>
+            <svg class="cutting-area" id="svg-cutting-area" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 800 600"
+                 onload="makeCuttable(evt)">
+                <path id='path' stroke="black" stroke-width="3" fill='none'></path>
+            </svg>
+        </div>
+    </div>
+    <script src="../scripts/level2.js"></script>
+</body>
+</html>

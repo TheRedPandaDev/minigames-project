@@ -1,0 +1,16 @@
+.dragging-area {
+    display: block;
+    height: 600px;
+    width: 800px;
+    border: 10px #e4e4e4 solid;
+    margin: 50px auto;
+    background-color: #fff;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.draggable.mouseDown {
+    cursor: grabbing;
+}

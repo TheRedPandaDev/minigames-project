@@ -1,6 +1,7 @@
 var downloadForm = document.getElementById('download-form');
 var nameHere = document.getElementById('name-here');
 var resultsElem = document.getElementById('results');
+var tryAgain = document.getElementById('try-again');
 
 var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
 var nameNode = document.createTextNode(playerInfo.name);
@@ -31,4 +32,15 @@ downloadForm.addEventListener('submit', e => {
         'The Shape-Cutting Game II - Your range: ' + playerInfo.level3 + '\r\n\r\n' +
         'Shapes Extravaganza by Thomas Miles - http://shapesgame.thomasmiles.ml/'
     downloadToFile(text, `shapes-game-results-${Date.now()}`, 'text/plain');
+})
+
+tryAgain.addEventListener('click', e => {
+    var resetInfo = {
+        name: playerInfo.name,
+        level1: 0,
+        level2: 0,
+        level3: 0
+    }
+    localStorage.setItem('playerInfo', JSON.stringify(resetInfo));
+    window.location.href = '/Project/index.html';
 })

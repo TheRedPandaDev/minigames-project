@@ -29,6 +29,6 @@ downloadForm.addEventListener('submit', e => {
         'The Trapezoid Game - Number of moves: ' + playerInfo.level1 + '\r\n' +
         'The Shape-Cutting Game - Your time: ' + playerInfo.level2 + 's' + '\r\n' +
         'The Shape-Cutting Game II - Your range: ' + playerInfo.level3 + '\r\n\r\n' +
-        'ShapeS Extravaganza by Thomas Miles - http://shapesgame.thomasmiles.ml/'
+        'Shapes Extravaganza by Thomas Miles - http://shapesgame.thomasmiles.ml/'
     downloadToFile(text, `shapes-game-results-${Date.now()}`, 'text/plain');
 })

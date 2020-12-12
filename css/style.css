@@ -118,3 +118,14 @@ p {
 .next-button:hover {
   background-color: #4169e1;
 }
+
+.restart {
+  padding: 10px 20px;
+  background-color: #474747;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.restart:hover {
+  background-color: #303030;
+}

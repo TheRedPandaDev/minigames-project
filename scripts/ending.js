@@ -9,7 +9,7 @@ nameHere.appendChild(nameNode);
 var br = document.createElement('br');
 resultsElem.innerText = 'The Trapezoid Game - Number of moves: ' + playerInfo.level1;
 resultsElem.appendChild(br);
-resultsElem.innerText += 'The Shape-Cutting Game - Your time: ' + playerInfo.level2;
+resultsElem.innerText += 'The Shape-Cutting Game - Your time: ' + playerInfo.level2 + 's';
 resultsElem.appendChild(br);
 resultsElem.innerText += 'The Shape-Cutting Game II - Your range: ' + playerInfo.level3;
 

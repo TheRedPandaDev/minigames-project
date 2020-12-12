@@ -7,6 +7,7 @@ var svg = document.getElementById('svg-cutting-area');
 var cutsAmountElem = document.getElementById('cutsAmount');
 var cutsCounterElem = document.getElementById('cutsCounter');
 var areasCounterElem = document.getElementById('areasCounter');
+var content = document.getElementsByClassName('content')[0];
 
 function Polygon() {
     var pointList = [];
@@ -292,14 +293,48 @@ function updateAreasCounter() {
 function checkGame() {
     if (cutsCounter === cutsAmount) {
         canPlay = false;
-        if (areasMaxDiff < 25) {
+        if (areasMaxDiff < 50) {
             setTimeout(function() {
-                alert('You win!');
+                endGame('You win!');
             }, 10)
         } else {
             setTimeout(function() {
-                alert('You lose!');
+                endGame('You lose!');
             }, 10)
         }
     }
+}
+
+function endGame(msg) {
+    var endScreen = document.createElement('div');
+    endScreen.classList.add('endScreen');
+    var msgElem = document.createElement('h1');
+    var msgText = document.createTextNode(msg);
+    var resultElem = document.createElement('p');
+    var resultText = document.createTextNode('Your range: ' + areasMaxDiff);
+    var restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Try again';
+    restartBtn.classList.add('try-again-button');
+    restartBtn.addEventListener('click', evt => {
+        window.location.href = '/Project/pages/level3.html';
+    })
+    msgElem.appendChild(msgText);
+    resultElem.appendChild(resultText);
+    endScreen.appendChild(msgElem);
+    if (msg === 'You win!') endScreen.appendChild(resultElem);
+    endScreen.appendChild(restartBtn);
+    if (msg === 'You win!') {
+        var nextBtn = document.createElement('button');
+        nextBtn.innerText = 'Continue';
+        nextBtn.classList.add('next-button');
+        nextBtn.addEventListener('click', evt => {
+            var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
+            playerInfo.level3 = areasMaxDiff;
+            localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
+            window.location.href = '/Project/pages/ending.html';
+        });
+        endScreen.appendChild(nextBtn);
+    }
+    content.removeChild(svg);
+    content.appendChild(endScreen);
 }

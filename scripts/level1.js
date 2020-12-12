@@ -2,6 +2,11 @@ var boundaryX1 = 0;
 var boundaryX2 = 800;
 var boundaryY1 = 0;
 var boundaryY2 = 600;
+var moveCounter = 0;
+var moveCounterElem = document.getElementById('moveCounter');
+var svg = document.getElementById('svg-dragging-area');
+var content = document.getElementsByClassName('content')[0];
+var canPlay = true;
 
 function handleClick(e) {
     e.preventDefault();
@@ -185,7 +190,6 @@ function makeDraggable(evt) {
     svg.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
     var selectedElement = false;
-    var canPlay = true;
 
     function startDrag(evt) {
         if (evt.target.classList.contains('draggable')) {
@@ -230,12 +234,12 @@ function makeDraggable(evt) {
         }
     }
     function endDrag(evt) {
-        evt.target.classList.remove('mouseDown');
-        selectedElement = null;
-        if (canPlay && checkPos()) {
-            alert('You win!');
-            canPlay = false;
-            setTimeout(function() { canPlay = true; }, 3000)
+        if (selectedElement) {
+            evt.target.classList.remove('mouseDown');
+            selectedElement = null;
+            moveCounter++;
+            moveCounterElem.innerText = moveCounter.toString();
+            checkGame();
         }
     }
 
@@ -404,3 +408,43 @@ function checkPos() {
     return true;
 }
 
+function checkGame() {
+    setTimeout(() => {
+        if (canPlay && checkPos()) {
+            endGame('You win!');
+            canPlay = false;
+        }
+    }, 10)
+}
+
+function endGame(msg) {
+    var endScreen = document.createElement('div');
+    endScreen.classList.add('endScreen');
+    var msgElem = document.createElement('h1');
+    var msgText = document.createTextNode(msg);
+    var resultElem = document.createElement('p');
+    var resultText = document.createTextNode('Number of moves: ' + moveCounter);
+    var restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Try again';
+    restartBtn.classList.add('try-again-button');
+    restartBtn.addEventListener('click', evt => {
+        window.location.href = '/Project/pages/level1.html';
+    })
+    var nextBtn = document.createElement('button');
+    nextBtn.innerText = 'Next game';
+    nextBtn.classList.add('next-button');
+    nextBtn.addEventListener('click', evt => {
+        var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
+        playerInfo.level1 = moveCounter;
+        localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
+        window.location.href = '/Project/pages/level2.html';
+    })
+    msgElem.appendChild(msgText);
+    resultElem.appendChild(resultText);
+    endScreen.appendChild(msgElem);
+    endScreen.appendChild(resultElem);
+    endScreen.appendChild(restartBtn);
+    endScreen.appendChild(nextBtn);
+    content.removeChild(svg);
+    content.appendChild(endScreen);
+}

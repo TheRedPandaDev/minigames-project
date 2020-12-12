@@ -8,6 +8,8 @@ var cutsAmountElem = document.getElementById('cutsAmount');
 var cutsCounterElem = document.getElementById('cutsCounter');
 var piecesCounterElem = document.getElementById('piecesCounter');
 var goalAmountElem = document.getElementById('goalAmount');
+var content = document.getElementsByClassName('content')[0];
+var stopwatchStart;
 
 function Polygon() {
     var pointList = [];
@@ -157,6 +159,8 @@ function makeCuttable(evt) {
     svg.addEventListener('mouseleave', endCut);
     svg.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
+    stopwatchStart = Date.now();
+
     function startCut(evt) {
         if (!canPlay) return;
         cutStarted = true;
@@ -271,12 +275,47 @@ function checkGame() {
         canPlay = false;
         if (piecesCounter === goalAmount) {
             setTimeout(function() {
-                alert('You win!');
+                endGame('You win!');
             }, 10)
         } else {
             setTimeout(function() {
-                alert('You lose!');
+                endGame('You lose!');
             }, 10)
         }
     }
+}
+
+function endGame(msg) {
+    var timeResult = Math.round(((Date.now() - stopwatchStart) / 1000 + Number.EPSILON) * 10) / 10;
+    var endScreen = document.createElement('div');
+    endScreen.classList.add('endScreen');
+    var msgElem = document.createElement('h1');
+    var msgText = document.createTextNode(msg);
+    var resultElem = document.createElement('p');
+    var resultText = document.createTextNode('Your time: ' + timeResult + 's');
+    var restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Try again';
+    restartBtn.classList.add('try-again-button');
+    restartBtn.addEventListener('click', evt => {
+        window.location.href = '/Project/pages/level2.html';
+    })
+    msgElem.appendChild(msgText);
+    resultElem.appendChild(resultText);
+    endScreen.appendChild(msgElem);
+    if (msg === 'You win!') endScreen.appendChild(resultElem);
+    endScreen.appendChild(restartBtn);
+    if (msg === 'You win!') {
+        var nextBtn = document.createElement('button');
+        nextBtn.innerText = 'Next game';
+        nextBtn.classList.add('next-button');
+        nextBtn.addEventListener('click', evt => {
+            var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
+            playerInfo.level2 = timeResult;
+            localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
+            window.location.href = '/Project/pages/level3.html';
+        });
+        endScreen.appendChild(nextBtn);
+    }
+    content.removeChild(svg);
+    content.appendChild(endScreen);
 }

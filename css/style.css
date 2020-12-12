@@ -28,7 +28,8 @@ h2 {
 }
 
 p {
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
   color: #e4e4e4;
   font-size: 20px;
 }
@@ -44,6 +45,76 @@ p {
   height: 600px;
   width: 800px;
   border: 10px #e4e4e4 solid;
-  margin: 50px auto;
+  margin: 20px auto;
   background-color: #fff;
+}
+
+.form-inline {
+  display: block;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.form-inline input {
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.form-inline button {
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: #4169e1;
+}
+
+.endScreen {
+  display: block;
+  height: 600px;
+  width: 800px;
+  border: 10px #e4e4e4 solid;
+  margin: 20px auto;
+  background-color: #fff;
+}
+
+.endScreen h1 {
+  color: #969696;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.endScreen p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #969696;
+  font-size: 20px;
+}
+
+.try-again-button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #474747;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.try-again-button:hover {
+  background-color: #303030;
+}
+
+.next-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.next-button:hover {
+  background-color: #4169e1;
 }

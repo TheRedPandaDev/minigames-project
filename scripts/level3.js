@@ -120,7 +120,7 @@ var hardLevel = {
 
 cutsAmount = easyLevel.cutsAmount;
 cutsAmountElem.innerText = cutsAmount.toString();
-areasCounterElem.innerText = areaFromCoords(easyLevel.polygon).toString() + ' (range: ' + areasMaxDiff + ')';
+areasCounterElem.innerText = areaFromCoords(easyLevel.polygon).toString() + ' (размах: ' + areasMaxDiff + ')';
 
 var polygonElems = new Map();
 var globalPolId = 1;
@@ -165,6 +165,7 @@ function makeCuttable(evt) {
     svg.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
     function startCut(evt) {
+        evt.preventDefault();
         if (!canPlay) return;
         cutStarted = true;
         pathStart = getMousePosition(evt);
@@ -172,6 +173,7 @@ function makeCuttable(evt) {
     }
 
     function cut(evt) {
+        evt.preventDefault();
         if (!canPlay || !cutStarted) return;
         evt.preventDefault();
         pathEnd = getMousePosition(evt);
@@ -287,20 +289,16 @@ function updateAreasCounter() {
     for (let i = 1; i < areas.length - 1; i++) {
         areasCounterElem.innerText += ' ' + areas[i] + ',';
     }
-    areasCounterElem.innerText += ' ' + areas[areas.length - 1] + ' (range: ' + areasMaxDiff + ')';
+    areasCounterElem.innerText += ' ' + areas[areas.length - 1] + ' (размах: ' + areasMaxDiff + ')';
 }
 
 function checkGame() {
     if (cutsCounter === cutsAmount) {
         canPlay = false;
         if (areasMaxDiff < 50) {
-            setTimeout(function() {
-                endGame('You win!');
-            }, 10)
+            setTimeout(endGame, 2000, 'Победа!')
         } else {
-            setTimeout(function() {
-                endGame('You lose!');
-            }, 10)
+            setTimeout(endGame, 2000, 'Поражение')
         }
     }
 }
@@ -311,27 +309,27 @@ function endGame(msg) {
     var msgElem = document.createElement('h1');
     var msgText = document.createTextNode(msg);
     var resultElem = document.createElement('p');
-    var resultText = document.createTextNode('Your range: ' + areasMaxDiff);
+    var resultText = document.createTextNode('Ваш размах: ' + areasMaxDiff);
     var restartBtn = document.createElement('button');
-    restartBtn.innerText = 'Try again';
+    restartBtn.innerText = 'Попробовать ещё раз';
     restartBtn.classList.add('try-again-button');
     restartBtn.addEventListener('click', evt => {
-        window.location.href = '/Project/pages/level3.html';
+        window.location.href = './level3.html';
     })
     msgElem.appendChild(msgText);
     resultElem.appendChild(resultText);
     endScreen.appendChild(msgElem);
-    if (msg === 'You win!') endScreen.appendChild(resultElem);
+    if (msg === 'Победа!') endScreen.appendChild(resultElem);
     endScreen.appendChild(restartBtn);
-    if (msg === 'You win!') {
+    if (msg === 'Победа!') {
         var nextBtn = document.createElement('button');
-        nextBtn.innerText = 'Continue';
+        nextBtn.innerText = 'Далее';
         nextBtn.classList.add('next-button');
         nextBtn.addEventListener('click', evt => {
             var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
             playerInfo.level3 = areasMaxDiff;
             localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
-            window.location.href = '/Project/pages/ending.html';
+            window.location.href = './ending.html';
         });
         endScreen.appendChild(nextBtn);
     }

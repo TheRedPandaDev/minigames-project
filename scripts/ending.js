@@ -7,11 +7,11 @@ var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
 var nameNode = document.createTextNode(playerInfo.name);
 nameHere.appendChild(nameNode);
 var br = document.createElement('br');
-resultsElem.innerText = 'The Trapezoid Game - Number of moves: ' + playerInfo.level1;
+resultsElem.innerText = 'The Trapezoid Game - Количество ходов: ' + playerInfo.level1;
 resultsElem.appendChild(br);
-resultsElem.innerText += 'The Shape-Cutting Game - Your time: ' + playerInfo.level2 + 's';
+resultsElem.innerText += 'The Shape-Cutting Game - Ваше время: ' + playerInfo.level2 + 'с';
 resultsElem.appendChild(br);
-resultsElem.innerText += 'The Shape-Cutting Game II - Your range: ' + playerInfo.level3;
+resultsElem.innerText += 'The Shape-Cutting Game II - Ваш размах: ' + playerInfo.level3;
 
 const downloadToFile = (content, filename, contentType) => {
     const a = document.createElement('a');
@@ -24,14 +24,16 @@ const downloadToFile = (content, filename, contentType) => {
     URL.revokeObjectURL(a.href);
 };
 
+let dateObj = new Date();
+
 downloadForm.addEventListener('submit', e => {
     e.preventDefault();
-    const text = `Results for ${playerInfo.name}` + '\r\n\r\n' +
-        'The Trapezoid Game - Number of moves: ' + playerInfo.level1 + '\r\n' +
-        'The Shape-Cutting Game - Your time: ' + playerInfo.level2 + 's' + '\r\n' +
-        'The Shape-Cutting Game II - Your range: ' + playerInfo.level3 + '\r\n\r\n' +
+    const text = `Поздравляем, ${playerInfo.name}!` + '\r\n\r\n' +
+        'The Trapezoid Game - Количество ходов: ' + playerInfo.level1 + '\r\n' +
+        'The Shape-Cutting Game - Ваше время: ' + playerInfo.level2 + 'с' + '\r\n' +
+        'The Shape-Cutting Game II - Ваш размах: ' + playerInfo.level3 + '\r\n\r\n' +
         'Shapes Extravaganza by Thomas Miles - http://shapesgame.thomasmiles.ml/'
-    downloadToFile(text, `shapes-game-results-${Date.now()}`, 'text/plain');
+    downloadToFile(text, `shapes-extravaganza-results--${dateObj.getHours()}:${dateObj.getMinutes()}:${dateObj.getSeconds()}--${dateObj.getDay()}-${dateObj.getMonth()}-${dateObj.getFullYear()}`, 'text/plain');
 })
 
 tryAgain.addEventListener('click', e => {
@@ -42,5 +44,5 @@ tryAgain.addEventListener('click', e => {
         level3: 0
     }
     localStorage.setItem('playerInfo', JSON.stringify(resetInfo));
-    window.location.href = '/Project/index.html';
+    window.location.href = '../index.html';
 })

@@ -12,5 +12,5 @@ inputForm.addEventListener('submit', e => {
         level3: 0
     }
     localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
-    window.location.href = '/Project/pages/level1.html';
+    window.location.href = './pages/tutorial.html';
 })

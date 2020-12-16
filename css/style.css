@@ -17,19 +17,19 @@ p a {
 
 h1 {
   color: #e4e4e4;
-  font-size: 50px;
-  margin-bottom: 10px;
+  font-size: 25px;
+  margin-bottom: 0;
 }
 
 h2 {
   margin-top: 0;
   color: #e4e4e4;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 p {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   color: #e4e4e4;
   font-size: 20px;
 }
@@ -45,7 +45,7 @@ p {
   height: 600px;
   width: 800px;
   border: 10px #e4e4e4 solid;
-  margin: 20px auto;
+  margin: 10px auto;
   background-color: #fff;
 }
 

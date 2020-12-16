@@ -10,6 +10,7 @@ var piecesCounterElem = document.getElementById('piecesCounter');
 var goalAmountElem = document.getElementById('goalAmount');
 var content = document.getElementsByClassName('content')[0];
 var stopwatchStart;
+var timeResult;
 
 function Polygon() {
     var pointList = [];
@@ -162,6 +163,7 @@ function makeCuttable(evt) {
     stopwatchStart = Date.now();
 
     function startCut(evt) {
+        evt.preventDefault();
         if (!canPlay) return;
         cutStarted = true;
         pathStart = getMousePosition(evt);
@@ -169,6 +171,7 @@ function makeCuttable(evt) {
     }
 
     function cut(evt) {
+        evt.preventDefault();
         if (!canPlay || !cutStarted) return;
         evt.preventDefault();
         pathEnd = getMousePosition(evt);
@@ -272,47 +275,43 @@ function resetPolygons(newPols) {
 
 function checkGame() {
     if (cutsCounter === cutsAmount) {
+        timeResult = Math.round(((Date.now() - stopwatchStart) / 1000 + Number.EPSILON) * 10) / 10;
         canPlay = false;
         if (piecesCounter === goalAmount) {
-            setTimeout(function() {
-                endGame('You win!');
-            }, 10)
+            setTimeout(endGame, 2000, 'Победа!')
         } else {
-            setTimeout(function() {
-                endGame('You lose!');
-            }, 10)
+            setTimeout(endGame, 2000, 'Поражение')
         }
     }
 }
 
 function endGame(msg) {
-    var timeResult = Math.round(((Date.now() - stopwatchStart) / 1000 + Number.EPSILON) * 10) / 10;
     var endScreen = document.createElement('div');
     endScreen.classList.add('endScreen');
     var msgElem = document.createElement('h1');
     var msgText = document.createTextNode(msg);
     var resultElem = document.createElement('p');
-    var resultText = document.createTextNode('Your time: ' + timeResult + 's');
+    var resultText = document.createTextNode('Ваше время: ' + timeResult + 'с');
     var restartBtn = document.createElement('button');
-    restartBtn.innerText = 'Try again';
+    restartBtn.innerText = 'Попробовать ещё раз';
     restartBtn.classList.add('try-again-button');
     restartBtn.addEventListener('click', evt => {
-        window.location.href = '/Project/pages/level2.html';
+        window.location.href = './level2.html';
     })
     msgElem.appendChild(msgText);
     resultElem.appendChild(resultText);
     endScreen.appendChild(msgElem);
-    if (msg === 'You win!') endScreen.appendChild(resultElem);
+    if (msg === 'Победа!') endScreen.appendChild(resultElem);
     endScreen.appendChild(restartBtn);
-    if (msg === 'You win!') {
+    if (msg === 'Победа!') {
         var nextBtn = document.createElement('button');
-        nextBtn.innerText = 'Next game';
+        nextBtn.innerText = 'Следующая игра';
         nextBtn.classList.add('next-button');
         nextBtn.addEventListener('click', evt => {
             var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
             playerInfo.level2 = timeResult;
             localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
-            window.location.href = '/Project/pages/level3.html';
+            window.location.href = './level3.html';
         });
         endScreen.appendChild(nextBtn);
     }

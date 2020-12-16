@@ -192,7 +192,8 @@ function makeDraggable(evt) {
     var selectedElement = false;
 
     function startDrag(evt) {
-        if (evt.target.classList.contains('draggable')) {
+        evt.preventDefault();
+        if (evt.target.classList.contains('draggable')  && canPlay) {
             evt.target.classList.add('mouseDown');
             selectedElement = evt.target;
             offset = getMousePosition(evt);
@@ -221,7 +222,8 @@ function makeDraggable(evt) {
         }
     }
     function drag(evt) {
-        if (selectedElement) {
+        evt.preventDefault();
+        if (selectedElement  && canPlay) {
             evt.preventDefault();
             var coord = getMousePosition(evt);
             var dx = coord.x - offset.x;
@@ -234,7 +236,8 @@ function makeDraggable(evt) {
         }
     }
     function endDrag(evt) {
-        if (selectedElement) {
+        evt.preventDefault();
+        if (selectedElement  && canPlay) {
             evt.target.classList.remove('mouseDown');
             selectedElement = null;
             moveCounter++;
@@ -409,12 +412,10 @@ function checkPos() {
 }
 
 function checkGame() {
-    setTimeout(() => {
-        if (canPlay && checkPos()) {
-            endGame('You win!');
-            canPlay = false;
-        }
-    }, 10)
+    if (canPlay && checkPos()) {
+        setTimeout(endGame, 1000, 'Победа!');
+        canPlay = false;
+    }
 }
 
 function endGame(msg) {
@@ -423,21 +424,21 @@ function endGame(msg) {
     var msgElem = document.createElement('h1');
     var msgText = document.createTextNode(msg);
     var resultElem = document.createElement('p');
-    var resultText = document.createTextNode('Number of moves: ' + moveCounter);
+    var resultText = document.createTextNode('Количество ходов: ' + moveCounter);
     var restartBtn = document.createElement('button');
-    restartBtn.innerText = 'Try again';
+    restartBtn.innerText = 'Попробовать ещё раз';
     restartBtn.classList.add('try-again-button');
     restartBtn.addEventListener('click', evt => {
-        window.location.href = '/Project/pages/level1.html';
+        window.location.href = './level1.html';
     })
     var nextBtn = document.createElement('button');
-    nextBtn.innerText = 'Next game';
+    nextBtn.innerText = 'Следующая игра';
     nextBtn.classList.add('next-button');
     nextBtn.addEventListener('click', evt => {
         var playerInfo = JSON.parse(localStorage.getItem('playerInfo'));
         playerInfo.level1 = moveCounter;
         localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
-        window.location.href = '/Project/pages/level2.html';
+        window.location.href = './level2.html';
     })
     msgElem.appendChild(msgText);
     resultElem.appendChild(resultText);
